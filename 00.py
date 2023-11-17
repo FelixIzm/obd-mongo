@@ -1,16 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import requests, re, json
-import asyncio,urllib.parse
-import csv,sys
-import argparse
+import json
+import sys
+
 from bs4 import BeautifulSoup
 import pymongo
 from pymongo import MongoClient
-import multiprocessing
-import time
-
 import mymodule
 
 
@@ -33,7 +29,4 @@ countPages = ''
 headers['User-Agent']='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:64.0) Gecko/20100101 Firefox/64.0'
 
 
-
-#mymodule.hello()
-#print(mymodule.fib(10))
 mymodule.main()

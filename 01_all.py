@@ -1,8 +1,8 @@
 #!/usr/bin/python3.11
 # -*- coding: utf-8 -*-
 import requests, re, json
-import asyncio,urllib.parse
-import csv,sys
+import urllib.parse
+import sys
 import argparse
 from bs4 import BeautifulSoup
 import pymongo
@@ -61,7 +61,7 @@ secret_cookie_value = ''
 JSESSIONID_value = ''
 countPages = ''
 headers['User-Agent']='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:64.0) Gecko/20100101 Firefox/64.0'
-loop = asyncio.get_event_loop()
+#loop = asyncio.get_event_loop()
 
 ########################################################
 url1= 'https://obd-memorial.ru/html'
@@ -164,14 +164,9 @@ def get_page(page):
     print("get_page = ", page)
     if(page==1):
         URL_search =url1+url2+url3
-        #cookies[secret_cookie]=secret_cookie_value
-        #cookies['request']=urllib.parse.quote(url3)
         headers['cookie']=secret_cookie+"="+secret_cookie_value
         res1 = requests.get(URL_search,cookies=cookies,headers=headers)
         if('JSESSIONID' in res1.cookies.keys()):
-            #cookies[secret_cookie]=secret_cookie_value
-            #cookies['request']=urllib.parse.quote(url3)
-            #cookies['JSESSIONID'] = JSESSIONID_value
             res2 = requests.get(URL_search,cookies=cookies,headers=headers,timeout=10)
             soup = BeautifulSoup(res2.text, 'html.parser')
             list_result = soup.find_all("div", {"class": "search-result"})
@@ -185,10 +180,6 @@ def get_page(page):
             return ids
     else:
         URL_search =url1+url2+url3 +'&p='+str(int(page))
-        #print(URL_search)
-        #cookies[secret_cookie]=secret_cookie_value
-        #cookies['request']=urllib.parse.quote(url3)
-        #cookies['JSESSIONID'] = JSESSIONID_value
         res1 = requests.get(URL_search,cookies=cookies,headers=headers)
         if(secret_cookie in res1.cookies.keys()):
             res2 = requests.get(URL_search,cookies=cookies,headers=headers,timeout=10)
